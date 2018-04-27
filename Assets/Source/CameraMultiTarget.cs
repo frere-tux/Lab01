@@ -20,6 +20,9 @@ public class CameraMultiTarget : MonoBehaviour
     public float maxSize = 15.0f;
     public float sizeLimiter = 25.0f;
 
+    public float floor = -5.0f;
+    public float ceiling = 25.0f; 
+
     private Vector3 velocity;
     private Camera cam;
 
@@ -80,7 +83,10 @@ public class CameraMultiTarget : MonoBehaviour
         Bounds bounds = new Bounds(targets[0].position, Vector3.zero);
         foreach (Transform target in targets)
         {
-            bounds.Encapsulate(target.position);
+            if (target.position.y > floor && target.position.y < ceiling)
+            {
+                bounds.Encapsulate(target.position);
+            }
         }
 
         return bounds.center;
